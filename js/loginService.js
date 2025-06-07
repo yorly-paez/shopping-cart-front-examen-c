@@ -25,7 +25,7 @@ function signUp(name, password){
         if(res.status === 200){
             res.json().then((data) => {
                 localStorage.setItem('token', data.accessToken);
-                alert('success');
+                alertBuilder('success', "Inicio de seccion exitoso")
                 console.log(data);
             })
 
@@ -34,20 +34,27 @@ function signUp(name, password){
             }, 2000)
 
         }else{
-            alert('danger');
+            alertBuilder('danger', "usuario o contraseña incorrectas" );
+            
         }
     })
 
     .catch((error) =>{
-        alertType = 'danger'
-        message = 'Ocurrio un error inesperado'
         console.log('error en el servicio', error)
-        alertBuilder(alertType, message)
+        
     })
 
-    alertMessage()
 
     
 
 }
 
+function alertBuilder(alertType, message){
+    const alertMessage = document.getElementById('alertMessage');
+    alertMessage.innerHTML = `
+        <div class="alert alert-${alertType}"> ${message}</div>
+    `
+    
+
+
+}
